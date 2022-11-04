@@ -36,14 +36,14 @@ class Gameboard {
       }
     });
     // if ship and target are in the same x-axis
-    ships.forEach((e) => {
-      if (target[1] === e.coord[1]) {
-        if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
-          e.ship.hit(target);
-          hitIsCalled = true;
-        }
-      }
-    });
+    // ships.forEach((e) => {
+    //   if (target[1] === e.coord[1]) {
+    //     if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
+    //       e.ship.hit(target);
+    //       hitIsCalled = true;
+    //     }
+    //   }
+    // });
 
     if (!hitIsCalled) { this.missedShots.push(target); }
     return hitIsCalled;
@@ -59,6 +59,10 @@ class Gameboard {
     }
 
     return ships.every((e) => e.ship.isSunk() === true);
+  }
+
+  reset() {
+    this.board = Array.from(Array(10), () => Array.from(Array(10).keys()));
   }
 }
 

@@ -53,6 +53,45 @@ function renderEnemyAttack(coord, isHit) {
   else div.style.backgroundColor = 'yellow';
 }
 
+function openModal(modal) {
+  const overlay = document.getElementById('overlay');
+
+  if (modal == null) return;
+  modal.classList.add('active');
+  overlay.classList.add('active');
+}
+
+function closeModal(modal) {
+  const overlay = document.getElementById('overlay');
+
+  if (modal == null) return;
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+}
+
+function renderWin(player) {
+  const gameOverModal = document.getElementById('game-over');
+  gameOverModal.firstElementChild.innerText = `${player} Won!`;
+  openModal(gameOverModal);
+}
+
+function renderNewBoards() {
+  const boards = document.querySelectorAll('.board');
+  boards.forEach((board) => {
+    const boardDivs = board.children;
+    for (let i = 0; i < boardDivs.length; i++) {
+      boardDivs[i].style.backgroundColor = '';
+    }
+  });
+}
+
+function resetBoards() {
+  const gameOverModal = document.getElementById('game-over');
+  closeModal(gameOverModal);
+  renderNewBoards();
+}
+
 export {
   createBoard, renderPlayerBoard, renderPlayerAttack, renderEnemyAttack,
+  renderWin, closeModal, resetBoards,
 };
