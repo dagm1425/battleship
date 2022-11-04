@@ -6,8 +6,7 @@ import Gameboard from './factories/Gameboard';
 import Ship from './factories/Ship';
 import Player from './factories/Player';
 
-window.onload = createBoard(10);
-const enemyBoardDom = document.querySelector('.board.enemy');
+const enemyBoardDivs = document.querySelector('.board.enemy').children;
 const replayBtn = document.getElementById('replay');
 const player = new Player('Player');
 const enemy = new Player('Enemy');
@@ -44,23 +43,27 @@ enemyBoard.board[5][0] = {
   ship: new Ship(3),
 };
 
+window.onload = createBoard(10);
+
 renderPlayerBoard(playerBoard.board);
 
-enemyBoardDom.addEventListener('click', (e) => {
-  const str = e.target.id.slice(1);
-  const xPos = parseInt(str[0]);
-  const yPos = parseInt(str[1]);
+for (let i = 0; i < enemyBoardDivs.length; i++) {
+  enemyBoardDivs[i].addEventListener('click', (e) => {
+    const str = e.target.id.slice(1);
+    const xPos = parseInt(str[0]);
+    const yPos = parseInt(str[1]);
 
-  const playerHit = player.attack([xPos, yPos], enemyBoard);
-  renderPlayerAttack(playerHit, xPos, yPos);
+    const playerHit = player.attack([xPos, yPos], enemyBoard);
+    renderPlayerAttack(playerHit, xPos, yPos);
 
-  if (playerHit !== undefined) {
-    const enemyHit = enemy.randomAttack(playerBoard);
-    renderEnemyAttack(enemyHit[0], enemyHit[1]);
-  }
-  if (playerBoard.areAllShipsSunk()) renderWin(enemy.name);
-  else if (enemyBoard.areAllShipsSunk()) renderWin(player.name);
-});
+    if (playerHit !== undefined) {
+      const enemyHit = enemy.randomAttack(playerBoard);
+      renderEnemyAttack(enemyHit[0], enemyHit[1]);
+    }
+    if (playerBoard.areAllShipsSunk()) renderWin(enemy.name);
+    else if (enemyBoard.areAllShipsSunk()) renderWin(player.name);
+  });
+}
 
 replayBtn.addEventListener('click', () => {
   resetBoards();
