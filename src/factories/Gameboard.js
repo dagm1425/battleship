@@ -46,6 +46,7 @@ class Gameboard {
     });
 
     if (!hitIsCalled) { this.missedShots.push(target); }
+    return hitIsCalled;
   }
 
   areAllShipsSunk() {

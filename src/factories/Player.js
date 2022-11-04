@@ -16,8 +16,8 @@ class Player {
     // but ship.hit() already knows not to shoot the same coordinate twice'
     if (this.isAlreadyHit(coord)) return;
 
-    gameboard.receiveAttack(coord);
     this.alreadyHitCoords.push(coordStr);
+    return gameboard.receiveAttack(coord);
   }
 
   randomAttack(gameboard) {
@@ -29,7 +29,7 @@ class Player {
     let x = Math.floor(Math.random() * 10);
     let y = Math.floor(Math.random() * 10);
 
-    while (this.isAlreadyHit(x, y)) {
+    while (this.isAlreadyHit([x, y])) {
       x = Math.floor(Math.random() * 10);
       y = Math.floor(Math.random() * 10);
     }
@@ -37,7 +37,9 @@ class Player {
     coord.push(x, y);
     coordStr = coord.toString();
     this.alreadyHitCoords.push(coordStr);
-    gameboard.receiveAttack([x, y]);
+    return [
+      coord, gameboard.receiveAttack([x, y]),
+    ];
   }
 }
 
