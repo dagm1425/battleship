@@ -1,54 +1,94 @@
 import {
   createBoard, renderPlayerBoard, renderPlayerAttack,
-  renderEnemyAttack, renderWin, resetBoards,
+  renderEnemyAttack, renderWin, resetBoards, rotateAxis,
+  hoverOn, hoverOff, markShip, placeShip, isLegal, closeModal,
+  openModal,
 } from './DOM';
 import Gameboard from './factories/Gameboard';
-import Ship from './factories/Ship';
 import Player from './factories/Player';
 
-const enemyBoardDivs = document.querySelector('.board.enemy').children;
-const replayBtn = document.getElementById('replay');
+window.onload = createBoard(10);
+
+const placementDivs = Array.from(document.querySelector('.board.placement').children);
+const rotateBtn = document.getElementById('rotate-btn');
+const enemyBoardDivs = Array.from(document.querySelector('.board.enemy').children);
+const replayBtn = document.getElementById('replay-btn');
 const player = new Player('Player');
 const enemy = new Player('Enemy');
 const playerBoard = new Gameboard();
 const enemyBoard = new Gameboard();
 
-playerBoard.board[0][3] = {
-  coord: [0, 3],
-  ship: new Ship(3),
-};
+enemyBoard.placeShip([0, 3], 5, 'h');
+enemyBoard.placeShip([0, 0], 4, 'v');
+enemyBoard.placeShip([3, 5], 3, 'h');
+enemyBoard.placeShip([6, 1], 3, 'h');
+enemyBoard.placeShip([9, 5], 2, 'h');
 
-playerBoard.board[3][5] = {
-  coord: [3, 5],
-  ship: new Ship(3),
-};
+placementDivs.forEach((placementDiv) => placementDiv.addEventListener('mouseenter', (e) => {
+  const lengths = [5, 4, 3, 3, 2];
+  const clickCounter = document.getElementById('click-counter');
+  const l = lengths[parseInt(clickCounter.innerText)];
 
-playerBoard.board[7][1] = {
-  coord: [7, 1],
-  ship: new Ship(3),
-};
+  hoverOn(e, l);
+}));
 
-enemyBoard.board[1][5] = {
-  coord: [1, 5],
-  ship: new Ship(3),
-};
+placementDivs.forEach((placementDiv) => placementDiv.addEventListener('mouseleave', (e) => {
+  const lengths = [5, 4, 3, 3, 2];
+  const clickCounter = document.getElementById('click-counter');
+  const l = lengths[parseInt(clickCounter.innerText)];
 
-enemyBoard.board[3][7] = {
-  coord: [3, 7],
-  ship: new Ship(3),
-};
+  hoverOff(e, l);
+}));
 
-enemyBoard.board[5][0] = {
-  coord: [5, 0],
-  ship: new Ship(3),
-};
+rotateBtn.addEventListener('click', () => {
+  rotateAxis();
+});
 
-window.onload = createBoard(10);
+placementDivs.forEach((placementDiv) => {
+  placementDiv.addEventListener('click', (e) => {
+    const gameStart = document.getElementById('game-start');
+    const lengths = [5, 4, 3, 3, 2];
+    const clickCounter = document.getElementById('click-counter');
+    const l = lengths[parseInt(clickCounter.innerText)];
 
-renderPlayerBoard(playerBoard.board);
+    // placeShip(e, l);
+    const axis = document.getElementById('axis');
+    const str = e.target.id;
+    const headX = parseInt(str[0]);
+    const headY = parseInt(str[1]);
 
-for (let i = 0; i < enemyBoardDivs.length; i++) {
-  enemyBoardDivs[i].addEventListener('click', (e) => {
+    if (axis.innerText === 'h') {
+      const tailX = headX;
+      const tailY = headY + l - 1;
+      if (isLegal(headX, headY) !== false
+      && isLegal(tailX, tailY) !== false
+      && (headY + l - 1) <= 9) {
+        markShip(e, l);
+        playerBoard.placeShip([headX, headY], l, axis.innerText);
+        renderPlayerBoard(playerBoard.board);
+      }
+    } else if (axis.innerText === 'v') {
+      const tailX = headX + l - 1;
+      const tailY = headY;
+      if (isLegal(headX, headY) !== false
+      && isLegal(tailX, tailY) !== false
+      && (headX + l - 1) <= 9) {
+        markShip(e, l);
+        playerBoard.placeShip([headX, headY], l, axis.innerText);
+        renderPlayerBoard(playerBoard.board);
+      }
+    }
+
+    if (parseInt(clickCounter.innerText) === 5) {
+      closeModal(gameStart);
+      clickCounter.innerText = 0;
+      axis.innerText = 'h';
+    }
+  });
+});
+
+enemyBoardDivs.forEach((enemyBoardDiv) => {
+  enemyBoardDiv.addEventListener('click', (e) => {
     const str = e.target.id.slice(1);
     const xPos = parseInt(str[0]);
     const yPos = parseInt(str[1]);
@@ -64,9 +104,8 @@ for (let i = 0; i < enemyBoardDivs.length; i++) {
     else if (enemyBoard.areAllShipsSunk()) renderWin(player.name);
   });
 }
-
-replayBtn.addEventListener('click', () => {
-  resetBoards();
-  playerBoard.reset();
-  enemyBoard.reset();
-});
+  replayBtn.addEventListener('click', () => {
+    resetBoards();
+    playerBoard.reset();
+    enemyBoard.reset();
+  });

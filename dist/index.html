@@ -8,6 +8,15 @@
     <script src="main.js" defer></script>
 </head>
 <body>
+    <div id="game-start" class="modal active">
+        <h1>Battleship</h1>
+        <h3>Place your ships to start playing</h3>
+        <button id="rotate-btn" class="primary-btn">Rotate</button>
+        <p id="axis" style="display:none;">h</p>
+        <p id="click-counter" style="display:none;">0</p>
+        <div class="board placement"></div>
+    </div>
+
     <div id="boards-wrapper">
         <div class="board player"></div>
         <div class="board enemy"></div>
@@ -15,8 +24,8 @@
 
     <div id="game-over" class="modal">
         <h1 id="winner"></h1>
-        <button id="replay">Replay</button>
+        <button id="replay-btn" class="primary-btn">Replay</button>
     </div>
-    <div id="overlay"></div>
+    <div id="overlay" class="active"></div>
 </body>
 </html>

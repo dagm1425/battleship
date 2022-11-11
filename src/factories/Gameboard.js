@@ -6,13 +6,14 @@ class Gameboard {
     this.missedShots = [];
   }
 
-  placeShip(cord) {
+  placeShip(cord, l, a) {
     const x = cord[0];
     const y = cord[1];
 
     this.board[x][y] = {
       coord: [x, y],
-      ship: new Ship(3),
+      axis: `${a}`,
+      ship: new Ship(l),
     };
   }
 
@@ -28,23 +29,20 @@ class Gameboard {
     }
 
     ships.forEach((e) => {
-      if (target[0] === e.coord[0]) {
-        if (target[1] >= e.coord[1] && target[1] <= (e.coord[1] + e.ship.length - 1)) {
+      if (e.axis === 'h') {
+        if (target[0] === e.coord[0]) {
+          if (target[1] >= e.coord[1] && target[1] <= (e.coord[1] + e.ship.length - 1)) {
+            e.ship.hit(target);
+            hitIsCalled = true;
+          }
+        }
+      } else if (target[1] === e.coord[1]) {
+        if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
           e.ship.hit(target);
           hitIsCalled = true;
         }
       }
     });
-    // if ship and target are in the same x-axis
-    // ships.forEach((e) => {
-    //   if (target[1] === e.coord[1]) {
-    //     if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
-    //       e.ship.hit(target);
-    //       hitIsCalled = true;
-    //     }
-    //   }
-    // });
-
     if (!hitIsCalled) { this.missedShots.push(target); }
     return hitIsCalled;
   }
