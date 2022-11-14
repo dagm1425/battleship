@@ -32,6 +32,6 @@ describe('Player', () => {
     for (let i = 0; i < 100; i++) {
       player.randomAttack(gameboard);
     }
-    expect(gameboard.areAllShipsSunk()).toBe(true);
+    expect(gameboard.areAllShipsSunk()).toBeTruthy();
   });
 });

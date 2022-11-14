@@ -17,6 +17,6 @@ describe('Ship', () => {
     ship.hit([1, 3]);
     ship.hit([1, 2]);
     // eslint-disable-next-line no-undef
-    expect(ship.isSunk()).toBe(true);
+    expect(ship.isSunk()).toBeTruthy();
   });
 });

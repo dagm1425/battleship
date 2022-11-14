@@ -54,6 +54,6 @@ describe('Gameboard', () => {
     gboard.receiveAttack([4, 1]);
     gboard.receiveAttack([4, 2]);
 
-    expect(gboard.areAllShipsSunk()).toBe(true);
+    expect(gboard.areAllShipsSunk()).toBeTruthy();
   });
 });
