@@ -75,30 +75,7 @@ function rotateAxis() {
   axis.innerText = 'h';
 }
 
-function isInBoard(x, y) {
-  if (x >= 0 && x <= 9
-    && y >= 0 && y <= 9) { return true; }
-}
-
-function isLegal(xPos, yPos) {
-  const dx = [-1, -1, -1, 0, 0, 1, 1, 1];
-  const dy = [-1, 0, 1, -1, 1, -1, 0, 1];
-  let x;
-  let y;
-
-  for (let i = 0; i < dx.length; i++) {
-    x = xPos + dx[i];
-    y = yPos + dy[i];
-    if (isInBoard(x, y)) {
-      const div = document.getElementById(`${x}${y}`);
-
-      if (div.style.backgroundColor === 'blue') return false;
-    }
-  }
-}
-
 function markShip(e, l) {
-  const clickCounter = document.getElementById('click-counter');
   const axis = document.getElementById('axis');
   const str = e.target.id;
   const xPos = parseInt(str[0]);
@@ -115,28 +92,7 @@ function markShip(e, l) {
       div.style.backgroundColor = 'blue';
     }
   }
-
-  clickCounter.innerText = parseInt(clickCounter.innerText) + 1;
 }
-
-// function placeShip(e, l) {
-//   const axis = document.getElementById('axis');
-//   const str = e.target.id;
-//   const headX = parseInt(str[0]);
-//   const headY = parseInt(str[1]);
-
-//   if (axis.innerText === 'h') {
-//     const tailX = headX;
-//     const tailY = headY + l - 1;
-//     if (isLegal(headX, headY) !== false
-//     && isLegal(tailX, tailY) !== false) { markShip(e, l); }
-//   } else if (axis.innerText === 'v') {
-//     const tailX = headX + l - 1;
-//     const tailY = headY;
-//     if (isLegal(headX, headY) !== false
-//     && isLegal(tailX, tailY) !== false) { markShip(e, l); }
-//   }
-// }
 
 function renderPlayerBoard(board) {
   const ships = [];
@@ -216,5 +172,5 @@ function resetBoards() {
 
 export {
   createBoard, renderPlayerBoard, renderPlayerAttack, renderEnemyAttack,
-  renderWin, closeModal, openModal, resetBoards, rotateAxis, hoverOn, hoverOff, markShip, isLegal,
+  renderWin, closeModal, openModal, resetBoards, rotateAxis, hoverOn, hoverOff, markShip,
 };
