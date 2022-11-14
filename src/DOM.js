@@ -24,11 +24,15 @@ function createBoard(n) {
   });
 }
 
-function hoverOn(e, l) {
+function hoverOn(e) {
   const axis = document.getElementById('axis');
   const str = e.target.id;
   const xPos = parseInt(str[0]);
   const yPos = parseInt(str[1]);
+  const lengths = [5, 4, 3, 3, 2];
+  const clickCounter = document.getElementById('click-counter');
+  const l = lengths[parseInt(clickCounter.innerText)];
+
   if (axis.innerText === 'h') {
     if ((yPos + l - 1) <= 9) {
       for (let i = 0; i < l; i++) {
@@ -46,11 +50,14 @@ function hoverOn(e, l) {
   }
 }
 
-function hoverOff(e, l) {
+function hoverOff(e) {
   const axis = document.getElementById('axis');
   const str = e.target.id;
   const xPos = parseInt(str[0]);
   const yPos = parseInt(str[1]);
+  const lengths = [5, 4, 3, 3, 2];
+  const clickCounter = document.getElementById('click-counter');
+  const l = lengths[parseInt(clickCounter.innerText)];
 
   if (axis.innerText === 'h') {
     if ((yPos + l - 1) <= 9) {

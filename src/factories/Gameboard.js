@@ -44,14 +44,12 @@ class Gameboard {
           if (target[1] >= e.coord[1] && target[1] <= (e.coord[1] + e.ship.length - 1)) {
             e.ship.hit(target);
             hitIsCalled = true;
-            console.log(target);
           }
         }
       } else if (target[1] === e.coord[1]) {
         if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
           e.ship.hit(target);
           hitIsCalled = true;
-          console.log(target);
         }
       }
     });

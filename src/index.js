@@ -1,9 +1,9 @@
 import {
-  createBoard, renderPlayerAttack, renderEnemyAttack,
-  renderWin, resetBoards, rotateAxis, hoverOn, hoverOff, openModal,
+  createBoard, resetBoards, rotateAxis, hoverOn, hoverOff, openModal,
 } from './DOM';
 import {
-  checkPlacementEnd, placePlayerShip,
+  checkPlacementEnd, placePlayerShip, launchPlayerAndEnemyAttacks,
+  checkGameEnd,
 } from './game';
 import Gameboard from './factories/Gameboard';
 import Player from './factories/Player';
@@ -20,19 +20,11 @@ const playerBoard = new Gameboard();
 const enemyBoard = new Gameboard();
 
 placementDivs.forEach((placementDiv) => placementDiv.addEventListener('mouseenter', (e) => {
-  const lengths = [5, 4, 3, 3, 2];
-  const clickCounter = document.getElementById('click-counter');
-  const l = lengths[parseInt(clickCounter.innerText)];
-
-  hoverOn(e, l);
+  hoverOn(e);
 }));
 
 placementDivs.forEach((placementDiv) => placementDiv.addEventListener('mouseleave', (e) => {
-  const lengths = [5, 4, 3, 3, 2];
-  const clickCounter = document.getElementById('click-counter');
-  const l = lengths[parseInt(clickCounter.innerText)];
-
-  hoverOff(e, l);
+  hoverOff(e);
 }));
 
 rotateBtn.addEventListener('click', () => {
@@ -48,19 +40,8 @@ placementDivs.forEach((placementDiv) => {
 
 enemyBoardDivs.forEach((enemyBoardDiv) => {
   enemyBoardDiv.addEventListener('click', (e) => {
-    const str = e.target.id.slice(1);
-    const xPos = parseInt(str[0]);
-    const yPos = parseInt(str[1]);
-
-    const playerHit = player.attack([xPos, yPos], enemyBoard);
-    renderPlayerAttack(playerHit, xPos, yPos);
-
-    if (playerHit !== undefined) {
-      const enemyHit = enemy.randomAttack(playerBoard);
-      renderEnemyAttack(enemyHit[0], enemyHit[1]);
-    }
-    if (playerBoard.areAllShipsSunk()) renderWin(enemy.name);
-    else if (enemyBoard.areAllShipsSunk()) renderWin(player.name);
+    launchPlayerAndEnemyAttacks(e, player, enemy, playerBoard, enemyBoard);
+    checkGameEnd(player, enemy, playerBoard, enemyBoard);
   });
 });
 
