@@ -12,8 +12,6 @@ class Player {
 
   attack(coord, gameboard) {
     const coordStr = coord.toString();
-
-    // but ship.hit() already knows not to shoot the same coordinate twice'
     if (this.isAlreadyHit(coord)) return;
 
     this.alreadyHitCoords.push(coordStr);
@@ -40,6 +38,10 @@ class Player {
     return [
       coord, gameboard.receiveAttack([x, y]),
     ];
+  }
+
+  resetAlreadyHitCoords() {
+    this.alreadyHitCoords = [];
   }
 }
 
