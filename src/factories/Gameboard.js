@@ -15,6 +15,16 @@ class Gameboard {
       axis: `${a}`,
       ship: new Ship(l),
     };
+
+    if (a === 'h') {
+      for (let i = 1; i < l; i++) {
+        this.board[x][y + i] = 'x';
+      }
+    } else {
+      for (let i = 1; i < l; i++) {
+        this.board[x + i][y] = 'x';
+      }
+    }
   }
 
   receiveAttack(target) {
@@ -34,12 +44,14 @@ class Gameboard {
           if (target[1] >= e.coord[1] && target[1] <= (e.coord[1] + e.ship.length - 1)) {
             e.ship.hit(target);
             hitIsCalled = true;
+            console.log(target);
           }
         }
       } else if (target[1] === e.coord[1]) {
         if (target[0] >= e.coord[0] && target[0] <= (e.coord[0] + e.ship.length - 1)) {
           e.ship.hit(target);
           hitIsCalled = true;
+          console.log(target);
         }
       }
     });
@@ -61,6 +73,7 @@ class Gameboard {
 
   reset() {
     this.board = Array.from(Array(10), () => Array.from(Array(10).keys()));
+    this.missedShots = [];
   }
 }
 
