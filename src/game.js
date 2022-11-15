@@ -93,7 +93,7 @@ function placeEnemyShip(enemyBoard) {
   enemyBoard.placeShip([headX, headY], l, axis);
 }
 
-function placePlayerShip(e, playerBoard, enemyBoard) {
+function placePlayerAndEnemyShips(e, playerBoard, enemyBoard) {
   const lengths = [5, 4, 3, 3, 2];
   const clickCounter = document.getElementById('click-counter');
   const l = lengths[parseInt(clickCounter.innerText)];
@@ -149,6 +149,6 @@ function checkGameEnd(player, enemy, playerBoard, enemyBoard) {
 }
 
 export {
-  incrementClick, checkPlacementEnd, placePlayerShip, placeEnemyShip,
+  incrementClick, checkPlacementEnd, placePlayerAndEnemyShips, placeEnemyShip,
   launchPlayerAndEnemyAttacks, checkGameEnd,
 };

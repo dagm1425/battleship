@@ -2,7 +2,7 @@ import {
   createBoard, resetBoards, rotateAxis, hoverOn, hoverOff, openModal,
 } from './DOM';
 import {
-  checkPlacementEnd, placePlayerShip, launchPlayerAndEnemyAttacks,
+  checkPlacementEnd, placePlayerAndEnemyShips, launchPlayerAndEnemyAttacks,
   checkGameEnd,
 } from './game';
 import Gameboard from './factories/Gameboard';
@@ -33,7 +33,7 @@ rotateBtn.addEventListener('click', () => {
 
 placementDivs.forEach((placementDiv) => {
   placementDiv.addEventListener('click', (e) => {
-    placePlayerShip(e, playerBoard, enemyBoard);
+    placePlayerAndEnemyShips(e, playerBoard, enemyBoard);
     checkPlacementEnd();
   });
 });
