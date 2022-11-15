@@ -37,14 +37,14 @@ function hoverOn(e) {
     if ((yPos + l - 1) <= 9) {
       for (let i = 0; i < l; i++) {
         const div = document.getElementById(`${xPos}${yPos + i}`);
-        if (div.style.backgroundColor === '') { div.style.backgroundColor = 'lightblue'; }
+        if (div.style.backgroundColor === '') { div.style.backgroundColor = 'rgb(28, 241, 213)'; }
       }
     }
   } else if (axis.innerText === 'v') {
     if ((xPos + l - 1) <= 9) {
       for (let i = 0; i < l; i++) {
         const div = document.getElementById(`${xPos + i}${yPos}`);
-        if (div.style.backgroundColor === '') { div.style.backgroundColor = 'lightblue'; }
+        if (div.style.backgroundColor === '') { div.style.backgroundColor = 'rgb(28, 241, 213)'; }
       }
     }
   }
@@ -63,14 +63,14 @@ function hoverOff(e) {
     if ((yPos + l - 1) <= 9) {
       for (let i = 0; i < l; i++) {
         const div = document.getElementById(`${xPos}${yPos + i}`);
-        if (div.style.backgroundColor === 'lightblue') { div.style.backgroundColor = ''; }
+        if (div.style.backgroundColor === 'rgb(28, 241, 213)') { div.style.backgroundColor = ''; }
       }
     }
   } else if (axis.innerText === 'v') {
     if ((xPos + l - 1) <= 9) {
       for (let i = 0; i < l; i++) {
         const div = document.getElementById(`${xPos + i}${yPos}`);
-        if (div.style.backgroundColor === 'lightblue') { div.style.backgroundColor = ''; }
+        if (div.style.backgroundColor === 'rgb(28, 241, 213)') { div.style.backgroundColor = ''; }
       }
     }
   }
@@ -91,12 +91,12 @@ function markShip(e, l) {
   if (axis.innerText === 'h') {
     for (let i = 0; i < l; i++) {
       const div = document.getElementById(`${xPos}${yPos + i}`);
-      div.style.backgroundColor = 'blue';
+      div.style.backgroundColor = 'rgb(118, 143, 156)';
     }
   } else {
     for (let i = 0; i < l; i++) {
       const div = document.getElementById(`${xPos + i}${yPos}`);
-      div.style.backgroundColor = 'blue';
+      div.style.backgroundColor = 'rgb(118, 143, 156)';
     }
   }
 }
@@ -114,12 +114,12 @@ function renderPlayerBoard(board) {
     if (e.axis === 'h') {
       for (let i = 0; i < e.ship.length; i++) {
         const div = document.getElementById(`p${e.coord[0]}${e.coord[1] + i}`);
-        div.style.backgroundColor = 'green';
+        div.style.backgroundColor = 'rgb(118, 143, 156)';
       }
     } else {
       for (let i = 0; i < e.ship.length; i++) {
         const div = document.getElementById(`p${e.coord[0] + i}${e.coord[1]}`);
-        div.style.backgroundColor = 'green';
+        div.style.backgroundColor = 'rgb(118, 143, 156)';
       }
     }
   });
@@ -128,15 +128,15 @@ function renderPlayerBoard(board) {
 function renderPlayerAttack(isHit, xPos, yPos) {
   const div = document.getElementById(`e${xPos}${yPos}`);
   if (div.style.backgroundColor === '') {
-    if (isHit) div.style.backgroundColor = 'red';
-    else div.style.backgroundColor = 'yellow';
+    if (isHit) div.style.backgroundColor = 'rgb(255, 45, 0)';
+    else div.style.backgroundColor = 'rgb(218, 247, 166)';
   }
 }
 
 function renderEnemyAttack(coord, isHit) {
   const div = document.getElementById(`p${coord[0]}${coord[1]}`);
-  if (isHit) div.style.backgroundColor = 'red';
-  else div.style.backgroundColor = 'yellow';
+  if (isHit) div.style.backgroundColor = 'rgb(255, 45, 0)';
+  else div.style.backgroundColor = 'rgb(218, 247, 166)';
 }
 
 function openModal(modal) {
