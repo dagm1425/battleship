@@ -11,21 +11,20 @@ describe('Player', () => {
     gameboard = new Gameboard();
     // ship = new Ship(3);
     player = new Player('Player1');
-    gameboard.placeShip([1, 3]);
+    gameboard.placeShip([4, 0], 2, 'h');
   });
 
   test('Attacks ship', () => {
-    player.attack([1, 4], gameboard);
+    player.attack([4, 1], gameboard);
 
-    expect(gameboard.board[1][3].ship.hits.length).toBe(1);
+    expect(gameboard.board[4][0].ship.hits.length).toBe(1);
   });
 
-  // but ship.hit() already knows not to shoot the same coordinate twice'
   test('Does not shoot the same coordinate twice', () => {
-    player.attack([1, 4], gameboard);
-    player.attack([1, 4], gameboard);
+    player.attack([4, 1], gameboard);
+    player.attack([4, 1], gameboard);
 
-    expect(gameboard.board[1][3].ship.hits.length).toBe(1);
+    expect(gameboard.board[4][0].ship.hits.length).toBe(1);
   });
 
   test('Randomly hits legal coordinates', () => {
