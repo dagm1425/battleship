@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 *, *::after, *::before {
@@ -7,13 +8,21 @@
     font-family: 'Montserrat', sans-serif;
   }
 
+#header {
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    font-size: 6rem;
+    letter-spacing: 0.25rem;
+    text-align: center;
+    padding: 3rem 1.5rem; 
+}
+
 #boards-wrapper {
     display: flex;
     width: 824px;
     height: 380px;
     gap: 4rem;
     justify-content: center;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 .board {
@@ -27,6 +36,10 @@
 
 .board-divs {
     background-color: #fff;
+}
+
+.board-divs:hover {
+    filter: brightness(.9);
 }
 
 .modal {
@@ -58,13 +71,6 @@
 #game-start h1 {
     margin-bottom: 0.75rem;
 }
-/* .modal-header {
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
-} */
 
 .primary-btn {
     color: #fff;
@@ -77,19 +83,6 @@
     border-radius: 25px;
     cursor: pointer;
 }
-
-/* .modal-header .close-button {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-} */
-
-/* .modal-body {
-    padding: 10px 15px;
-} */
 
 #overlay {
     position: fixed;
